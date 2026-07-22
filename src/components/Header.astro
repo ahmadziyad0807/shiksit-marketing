@@ -1,0 +1,100 @@
+---
+import { LINKS, SITE } from "../consts";
+
+const navItems = [
+  { name: "Features", href: "/#features" },
+  { name: "Pricing", href: LINKS.pricing },
+  { name: "Contact", href: "/#contact" },
+];
+---
+
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="/" class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+            <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+            <path d="M22 10v6"></path>
+            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+          </svg>
+        </div>
+        <span class="font-bold text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          {SITE.name}
+        </span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-1">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+          >
+            {item.name}
+          </a>
+        ))}
+        <a
+          href={LINKS.login}
+          class="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+        >
+          Log in
+        </a>
+        <a
+          href={LINKS.freeTrial}
+          class="ml-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
+        >
+          Start Free Trial
+        </a>
+      </div>
+
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 rounded-lg hover:bg-gray-100"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+          <path d="M4 12h16"></path><path d="M4 6h16"></path><path d="M4 18h16"></path>
+        </svg>
+        <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hidden">
+          <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden py-4 space-y-1 border-t">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium"
+        >
+          {item.name}
+        </a>
+      ))}
+      <a href={LINKS.login} class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
+        Log in
+      </a>
+      <a
+        href={LINKS.freeTrial}
+        class="block mx-4 mt-2 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold text-center"
+      >
+        Start Free Trial
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("menu-icon-open");
+  const iconClose = document.getElementById("menu-icon-close");
+
+  button?.addEventListener("click", () => {
+    const isHidden = menu?.classList.contains("hidden");
+    menu?.classList.toggle("hidden");
+    iconOpen?.classList.toggle("hidden");
+    iconClose?.classList.toggle("hidden");
+    button.setAttribute("aria-expanded", String(!!isHidden));
+  });
+</script>
