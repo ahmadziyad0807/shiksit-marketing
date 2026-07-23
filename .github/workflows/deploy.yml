@@ -33,7 +33,6 @@ jobs:
       - name: Build
         env:
           PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_ACCESS_KEY }}
-          PUBLIC_HCAPTCHA_SITE_KEY: ${{ secrets.PUBLIC_HCAPTCHA_SITE_KEY }}
         run: npm run build
 
       - name: Setup Pages
