@@ -1,6 +1,6 @@
 // Central place for brand + cross-site link config.
 // APP_URL points at the live app (AzLabs SPA). Update once the production
-// custom domain is confirmed — currently a placeholder.
+// custom domain is confirmed; currently a placeholder.
 export const APP_URL = "https://app.shiksit.com";
 
 export const LINKS = {
@@ -12,7 +12,7 @@ export const SITE = {
   name: "Shiksit",
   tagline: "School management, simplified.",
   description:
-    "Shiksit is a school management platform for teachers, students, parents, and administrators — attendance, grading, communication, and finance in one place.",
+    "Shiksit is a school management platform for teachers, students, parents, and administrators, covering attendance, grading, communication, and finance in one place.",
 };
 
 export const CONTACT = {
