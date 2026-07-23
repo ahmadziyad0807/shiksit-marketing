@@ -22,32 +22,6 @@ body {
   animation: marquee 28s linear infinite;
 }
 
-/* Logo idle float */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1.32); }
-  50%       { transform: translateY(-8px) scale(1.32); }
-}
-
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-/* Footer logo float + glow pulse */
-@keyframes float-glow {
-  0%, 100% {
-    transform: translateY(0px);
-    filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.4)) drop-shadow(0 0 16px rgba(96, 165, 250, 0.3));
-  }
-  50% {
-    transform: translateY(-8px);
-    filter: drop-shadow(0 0 18px rgba(251, 146, 60, 0.7)) drop-shadow(0 0 30px rgba(96, 165, 250, 0.5));
-  }
-}
-
-.animate-float-glow {
-  animation: float-glow 3.5s ease-in-out infinite;
-}
-
 /* Scroll-driven top progress bar, tracks how far down the document the reader is */
 .scroll-progress-bar {
   position: fixed;

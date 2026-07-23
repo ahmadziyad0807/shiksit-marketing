@@ -1,21 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import type { IconName } from "../components/Icon.astro";
 
-const roleHighlights = [
-  { emoji: "👩‍🏫", title: "Teachers", bg: "bg-yellow-100", description: "Automated grading, lesson planning, and full class management in one dashboard.", lottie: "https://assets10.lottiefiles.com/packages/lf20_myejiggj.json" },
-  { emoji: "🎒", title: "Students", bg: "bg-green-100", description: "Assignments, interactive lessons, and progress tracking, built for engagement.", lottie: "https://assets9.lottiefiles.com/packages/lf20_w51pcehl.json" },
-  { emoji: "🏠", title: "Parents", bg: "bg-blue-100", description: "Real-time attendance, grades, and direct messaging with teachers.", lottie: "https://assets2.lottiefiles.com/packages/lf20_tno6cg2w.json" },
-  { emoji: "🎓", title: "Principal/Manager", bg: "bg-purple-100", description: "Institution-wide oversight — enrollment, staff, and performance at a glance.", lottie: "https://assets5.lottiefiles.com/packages/lf20_svy4ivvd.json" },
-  { emoji: "💰", title: "Finance Admins", bg: "bg-teal-100", description: "Fee collection, invoicing, and financial reporting, fully in-platform." },
-  { emoji: "🚌", title: "Transport Admins", bg: "bg-orange-100", description: "Routes, vehicles, and pickup/drop tracking for student transport." },
-  { emoji: "🧑‍💼", title: "Counselors", bg: "bg-pink-100", description: "Behavioral tracking and well-being monitoring to support every student." },
-  { emoji: "💡", title: "IT Admins", bg: "bg-indigo-100", description: "User provisioning, access control, and platform settings, centralized." },
+const roleHighlights: { icon: IconName; title: string; description: string }[] = [
+  { icon: "award", title: "Teachers", description: "Automated grading, lesson planning, and full class management in one dashboard." },
+  { icon: "book-open", title: "Students", description: "Assignments, interactive lessons, and progress tracking, built for engagement." },
+  { icon: "home", title: "Parents", description: "Real-time attendance, grades, and direct messaging with teachers." },
+  { icon: "briefcase", title: "Principal/Manager", description: "Institution-wide oversight — enrollment, staff, and performance at a glance." },
+  { icon: "dollar-sign", title: "Finance Admins", description: "Fee collection, invoicing, and financial reporting, fully in-platform." },
+  { icon: "truck", title: "Transport Admins", description: "Routes, vehicles, and pickup/drop tracking for student transport." },
+  { icon: "heart", title: "Counselors", description: "Behavioral tracking and well-being monitoring to support every student." },
+  { icon: "settings", title: "IT Admins", description: "User provisioning, access control, and platform settings, centralized." },
 ];
 
-const valueProps = [
-  { icon: "💵", title: "Fixed Monthly Pricing", description: "Simple monthly billing with no hidden fees, scaled to your institution size." },
-  { icon: "💬", title: "Parent Communication", description: "Keep parents engaged and updated in real time about assignments and marks." },
-  { icon: "✨", title: "Assisted Onboarding", description: "Complete setup support and interactive tutorials for all administrative staff." },
+const valueProps: { icon: IconName; title: string; description: string }[] = [
+  { icon: "credit-card", title: "Fixed Monthly Pricing", description: "Simple monthly billing with no hidden fees, scaled to your institution size." },
+  { icon: "message-square", title: "Parent Communication", description: "Keep parents engaged and updated in real time about assignments and marks." },
+  { icon: "life-buoy", title: "Assisted Onboarding", description: "Complete setup support and interactive tutorials for all administrative staff." },
 ];
 ---
 
@@ -29,60 +31,56 @@ const valueProps = [
       />
     </div>
 
-    <div class="hero-blob absolute top-0 left-0 right-0 h-[600px] pointer-events-none z-0 overflow-hidden">
-      <!-- Main purple blob top-left -->
-      <div class="absolute -top-20 -left-20 w-[480px] h-[480px] rounded-full bg-purple-400/30 blur-[90px]"></div>
-      <!-- Pink blob top-right -->
-      <div class="absolute -top-10 right-0 w-[420px] h-[420px] rounded-full bg-pink-400/25 blur-[80px]"></div>
-      <!-- Orange accent blob center -->
-      <div class="absolute top-40 left-1/2 -translate-x-1/2 w-[320px] h-[320px] rounded-full bg-orange-300/20 blur-[70px]"></div>
+    <div class="hero-blob absolute top-0 left-0 right-0 h-[500px] pointer-events-none z-0 overflow-hidden">
+      <div class="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-purple-400/15 blur-[100px]"></div>
+      <div class="absolute -top-16 right-0 w-[380px] h-[380px] rounded-full bg-pink-400/12 blur-[100px]"></div>
     </div>
 
-    <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 z-10 overflow-hidden">
-      <div class="relative z-10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
+    <section class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6 z-10 text-center">
+      <span
+        id="hero-badge"
+        class="inline-flex items-center gap-1.5 bg-purple-100 text-purple-700 font-bold text-xs py-1 px-3.5 rounded-full mb-4 shadow-sm
+               opacity-0 translate-y-4 transition-all duration-500 ease-out delay-150"
+      >
+        Built for Academic Institutions
+      </span>
 
-        <!-- Text + CTAs — takes up available space -->
-        <div class="flex-1 text-center md:text-left">
-          <span
-            id="hero-badge"
-            class="inline-flex items-center gap-1.5 bg-purple-100 text-purple-700 font-bold text-xs py-1 px-3.5 rounded-full mb-3 shadow-sm
-                   opacity-0 translate-y-4 transition-all duration-500 ease-out delay-150"
-          >
-            ✨ Built for Academic Institutions
-          </span>
+      <h1
+        id="hero-heading"
+        class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight mb-4
+               opacity-0 translate-y-4 transition-all duration-500 ease-out delay-300"
+      >
+        One Platform for Educators, Administrators, Learners, and Parents
+      </h1>
 
-          <h1
-            id="hero-heading"
-            class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight mb-3
-                   opacity-0 translate-y-4 transition-all duration-500 ease-out delay-300"
-          >
-            One Platform for Educators, Administrators, Learners, and Parents
-          </h1>
+      <p
+        id="hero-body"
+        class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-6 leading-relaxed
+               opacity-0 translate-y-4 transition-all duration-500 ease-out delay-[450ms]"
+      >
+        Shiksit brings attendance, grading, communication, and finance into one unified platform for
+        schools, colleges, and learning centers — built to scale as your institution grows.
+      </p>
 
-          <p
-            id="hero-body"
-            class="text-base md:text-lg text-gray-600 max-w-3xl mb-5 leading-relaxed font-medium
-                   opacity-0 translate-y-4 transition-all duration-500 ease-out delay-[450ms]"
-          >
-            Shiksit brings attendance, grading, communication, and finance into one unified platform for
-            schools, colleges, and learning centers — built to scale as your institution grows.
-          </p>
-        </div>
-
-        <!-- Logo watermark behind the hero content -->
-        <div
-          id="hero-logo"
-          class="absolute top-1/2 right-0 -translate-y-1/2 w-40 md:w-64 pointer-events-none select-none
-               opacity-10 z-0"
-          aria-hidden="true"
+      <div
+        id="hero-cta"
+        class="flex flex-col sm:flex-row items-center justify-center gap-3
+               opacity-0 translate-y-4 transition-all duration-500 ease-out delay-[600ms]"
+      >
+        <button
+          type="button"
+          data-open-book-demo
+          class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
         >
-          <img
-            src="/logo.png"
-            alt=""
-            class="w-full h-auto object-contain mix-blend-multiply"
-          />
-        </div>
-
+          Book a Demo
+          <span aria-hidden="true">→</span>
+        </button>
+        <a
+          href="/pricing"
+          class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-lg border border-gray-300 text-gray-800 font-semibold hover:border-purple-400 hover:text-purple-600 transition-colors"
+        >
+          View Pricing
+        </a>
       </div>
     </section>
 
@@ -128,20 +126,14 @@ const valueProps = [
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {roleHighlights.map((role, index) => (
           <div
-            class={`${role.bg} scroll-reveal rounded-2xl p-4 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:-translate-y-1 cursor-pointer group`}
+            class="scroll-reveal bg-white rounded-2xl p-4 border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-purple-200 cursor-pointer group"
             style={`animation-range: entry 0% entry ${60 + (index % 4) * 12}%;`}
           >
-            {role.lottie ? (
-              <canvas 
-                class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110" 
-                id={`lottie-${index}`}
-                data-lottie={role.lottie}
-              ></canvas>
-            ) : (
-              <div class="text-2xl mb-2 transition-transform duration-300 group-hover:scale-110">{role.emoji}</div>
-            )}
+            <div class="grid h-10 w-10 place-items-center rounded-lg bg-purple-50 text-purple-600 mb-3 transition-transform duration-300 group-hover:scale-110">
+              <Icon name={role.icon} class="w-5 h-5" />
+            </div>
             <h3 class="font-bold text-gray-900 mb-1">{role.title}</h3>
-            <p class="text-sm text-gray-700">{role.description}</p>
+            <p class="text-sm text-gray-600">{role.description}</p>
           </div>
         ))}
       </div>
@@ -156,7 +148,9 @@ const valueProps = [
               class="scroll-reveal bg-white rounded-2xl p-5 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-purple-200 hover:-translate-y-2 cursor-pointer group"
               style={`animation-range: entry 0% entry ${60 + index * 15}%;`}
             >
-              <div class="text-2xl mb-2 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-125">{prop.icon}</div>
+              <div class="grid h-11 w-11 place-items-center rounded-lg bg-pink-50 text-pink-600 mb-3 transition-transform duration-300 group-hover:scale-110">
+                <Icon name={prop.icon} class="w-5 h-5" />
+              </div>
               <h3 class="font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">{prop.title}</h3>
               <p class="text-sm text-gray-600">{prop.description}</p>
             </div>
@@ -184,8 +178,6 @@ const valueProps = [
 </Layout>
 
 <script>
-  import { DotLottie } from '@lottiefiles/dotlottie-web';
-
   // ── Entrance animations ──────────────────────────────────────────────────
   const show = (id: string) => {
     const el = document.getElementById(id);
@@ -199,6 +191,7 @@ const valueProps = [
     show("hero-badge");
     show("hero-heading");
     show("hero-body");
+    show("hero-cta");
   });
 
   // ── Parallax on scroll ───────────────────────────────────────────────────
@@ -210,17 +203,4 @@ const valueProps = [
       blob.style.transform = `translateY(${y * (0.06 + i * 0.04)}px)`;
     });
   }, { passive: true });
-
-  // ── Initialize Lottie animations ─────────────────────────────────────────
-  document.querySelectorAll('[data-lottie]').forEach((canvas) => {
-    const src = canvas.getAttribute('data-lottie');
-    if (src) {
-      new DotLottie({
-        autoplay: true,
-        loop: true,
-        canvas: canvas as HTMLCanvasElement,
-        src: src,
-      });
-    }
-  });
 </script>
