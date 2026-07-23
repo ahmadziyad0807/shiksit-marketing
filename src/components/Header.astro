@@ -13,11 +13,11 @@ const navItems = [
   <div class="relative mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-2xl border border-gray-200/60 bg-white/70 px-4 py-3 shadow-sm backdrop-blur-xl md:px-6">
 
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-3" aria-label="Shiksit home">
-      <span class="grid h-14 w-14 place-items-center rounded-xl overflow-hidden bg-white shadow-lg shadow-purple-500/20">
+    <a href="/" class="flex items-center gap-2 md:gap-3 min-w-0 shrink" aria-label="Shiksit home">
+      <span class="grid h-10 w-10 md:h-14 md:w-14 shrink-0 place-items-center rounded-xl overflow-hidden bg-white shadow-lg shadow-purple-500/20">
         <img src="/Header.png" alt="Shiksit logo" class="w-full h-full object-contain" />
       </span>
-      <span class="text-3xl font-extrabold tracking-tight text-gray-900 font-sans">{SITE.name}</span>
+      <span class="text-xl md:text-3xl font-extrabold tracking-tight text-gray-900 font-sans truncate">{SITE.name}</span>
     </a>
 
     <!-- Desktop nav -->
@@ -30,7 +30,7 @@ const navItems = [
     </nav>
 
     <!-- CTA buttons -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 shrink-0">
       <a
         href={LINKS.login}
         class="hidden rounded-full border border-gray-200 px-4 py-2 text-lg font-medium text-gray-700 transition-colors hover:border-purple-400 hover:text-purple-600 md:inline-block"
@@ -40,10 +40,10 @@ const navItems = [
       <button
         type="button"
         data-open-book-demo
-        class="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 px-3 py-1.5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:shadow-purple-500/50 active:scale-95 shadow-sm"
+        class="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-600 to-pink-500 px-2.5 py-1.5 text-xs font-medium text-white transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:shadow-purple-500/50 active:scale-95 shadow-sm sm:px-3 sm:text-sm"
       >
         Book Demo
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true">
           <path d="M5 12h14"></path>
           <path d="m12 5 7 7-7 7"></path>
         </svg>
@@ -52,7 +52,7 @@ const navItems = [
       <!-- Mobile menu toggle -->
       <button
         id="mobile-menu-button"
-        class="ml-1 grid h-9 w-9 place-items-center rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 md:hidden"
+        class="ml-1 grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 md:hidden"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
