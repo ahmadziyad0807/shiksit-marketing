@@ -3,86 +3,92 @@ import { LINKS, SITE } from "../consts";
 
 const navItems = [
   { name: "Features", href: "/#features" },
-  { name: "Pricing", href: LINKS.pricing },
+  { name: "Pricing", href: "/pricing" },
   { name: "Contact", href: "/#contact" },
 ];
 ---
 
-<header class="bg-white shadow-md sticky top-0 z-50">
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <a href="/" class="flex items-center space-x-2">
-        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-            <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
-            <path d="M22 10v6"></path>
-            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
-          </svg>
-        </div>
-        <span class="font-bold text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-          {SITE.name}
-        </span>
+<!-- Floating glassmorphism header -->
+<header class="fixed top-0 inset-x-0 z-50 px-4">
+  <div class="relative mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-2xl border border-gray-200/60 bg-white/70 px-4 py-3 shadow-sm backdrop-blur-xl md:px-6">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3" aria-label="Shiksit home">
+      <span class="grid h-14 w-14 place-items-center rounded-xl overflow-hidden bg-white shadow-lg shadow-purple-500/20">
+        <img src="/Header.png" alt="Shiksit logo" class="w-full h-full object-contain" />
+      </span>
+      <span class="text-3xl font-extrabold tracking-tight text-gray-900 font-sans">{SITE.name}</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden gap-8 text-lg md:flex" aria-label="Main navigation">
+      {navItems.map((item) => (
+        <a href={item.href} class="font-semibold text-gray-800 transition-all duration-200 hover:text-purple-600 hover:scale-110 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full">
+          {item.name}
+        </a>
+      ))}
+    </nav>
+
+    <!-- CTA buttons -->
+    <div class="flex items-center gap-2">
+      <a
+        href={LINKS.login}
+        class="hidden rounded-full border border-gray-200 px-4 py-2 text-lg font-medium text-gray-700 transition-colors hover:border-purple-400 hover:text-purple-600 md:inline-block"
+      >
+        Log in
       </a>
+      <button
+        type="button"
+        data-open-book-demo
+        class="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 px-3 py-1.5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:shadow-purple-500/50 active:scale-95 shadow-sm"
+      >
+        Book Demo
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </button>
 
-      <div class="hidden md:flex items-center gap-1">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors font-medium"
-          >
-            {item.name}
-          </a>
-        ))}
-        <a
-          href={LINKS.login}
-          class="px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors font-medium"
-        >
-          Log in
-        </a>
-        <a
-          href={LINKS.freeTrial}
-          class="ml-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
-        >
-          Start Free Trial
-        </a>
-      </div>
-
+      <!-- Mobile menu toggle -->
       <button
         id="mobile-menu-button"
-        class="md:hidden p-2 rounded-lg hover:bg-gray-100"
+        class="ml-1 grid h-9 w-9 place-items-center rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 md:hidden"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
-        <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+        <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 12h16"></path><path d="M4 6h16"></path><path d="M4 18h16"></path>
         </svg>
-        <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 hidden">
+        <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true">
           <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
         </svg>
       </button>
     </div>
+  </div>
 
-    <div id="mobile-menu" class="md:hidden hidden py-4 space-y-1 border-t">
+  <!-- Mobile dropdown (sits below the pill, same width) -->
+  <div
+    id="mobile-menu"
+    class="mx-auto hidden max-w-6xl overflow-hidden rounded-2xl border border-gray-200/60 bg-white/90 backdrop-blur-xl shadow-sm mt-2 md:hidden"
+  >
+    <div class="flex flex-col gap-1 p-4">
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium"
+          class="rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
         >
           {item.name}
         </a>
       ))}
-      <a href={LINKS.login} class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 font-medium">
+      <a href={LINKS.login} class="rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors">
         Log in
       </a>
-      <a
-        href={LINKS.freeTrial}
-        class="block mx-4 mt-2 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold text-center"
-      >
-        Start Free Trial
-      </a>
     </div>
-  </nav>
+  </div>
 </header>
+
+<!-- Spacer so page content starts below the fixed header -->
+<div class="h-20"></div>
 
 <script>
   const button = document.getElementById("mobile-menu-button");

@@ -1,0 +1,274 @@
+---
+const CONTACT_EMAIL = "hello@shiksit.com";
+
+const roles = [
+  "Teacher",
+  "Student",
+  "Parent",
+  "Principal / Manager",
+  "Finance Admin",
+  "Transport Admin",
+  "Counselor",
+  "IT Admin",
+  "Other",
+];
+
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
+const hcaptchaSiteKey = import.meta.env.PUBLIC_HCAPTCHA_SITE_KEY ?? "";
+---
+
+<dialog
+  id="book-demo-modal"
+  class="m-auto w-[calc(100%-2rem)] max-w-lg rounded-2xl border border-gray-100 p-0 shadow-2xl backdrop:bg-gray-900/60 backdrop:backdrop-blur-sm"
+>
+  <div class="relative max-h-[85vh] overflow-y-auto p-6 sm:p-8">
+    <button
+      type="button"
+      id="book-demo-close"
+      aria-label="Close"
+      class="absolute top-4 right-4 grid h-8 w-8 place-items-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+
+    <div id="book-demo-form-state">
+      <h3 class="text-xl font-bold text-gray-900 mb-1">Book a Demo</h3>
+      <p class="text-sm text-gray-600 mb-5">
+        Tell us a bit about your institution and we'll get back to you shortly.
+      </p>
+
+      <form id="book-demo-form" class="space-y-4">
+        <input type="hidden" name="access_key" value={accessKey} />
+        <input type="hidden" name="subject" value="New Book Demo request — Shiksit website" />
+        <input type="hidden" name="from_name" value="Shiksit Website" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div>
+          <label for="bd-name" class="block text-sm font-medium text-gray-700 mb-1">Contact Name *</label>
+          <input
+            id="bd-name"
+            name="name"
+            type="text"
+            required
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+            placeholder="Jane Doe"
+          />
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="bd-institution" class="block text-sm font-medium text-gray-700 mb-1">Institution Name *</label>
+            <input
+              id="bd-institution"
+              name="institution"
+              type="text"
+              required
+              class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              placeholder="Sunrise Public School"
+            />
+          </div>
+          <div>
+            <label for="bd-city" class="block text-sm font-medium text-gray-700 mb-1">City *</label>
+            <input
+              id="bd-city"
+              name="city"
+              type="text"
+              required
+              class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              placeholder="Lucknow"
+            />
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="bd-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+            <input
+              id="bd-email"
+              name="email"
+              type="email"
+              required
+              class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              placeholder="jane@school.edu"
+            />
+          </div>
+          <div>
+            <label for="bd-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+            <input
+              id="bd-phone"
+              name="phone"
+              type="tel"
+              required
+              class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+              placeholder="+91 98765 43210"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="bd-role" class="block text-sm font-medium text-gray-700 mb-1">Your Role *</label>
+          <select
+            id="bd-role"
+            name="role"
+            required
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+          >
+            <option value="" disabled selected>Select your role</option>
+            {roles.map((role) => <option value={role}>{role}</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label for="bd-message" class="block text-sm font-medium text-gray-700 mb-1">Message (optional)</label>
+          <textarea
+            id="bd-message"
+            name="message"
+            rows="3"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+            placeholder="Tell us about your institution's needs..."
+          ></textarea>
+        </div>
+
+        {hcaptchaSiteKey && (
+          <div class="h-captcha" data-sitekey={hcaptchaSiteKey}></div>
+        )}
+
+        <div id="book-demo-error" class="hidden rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600"></div>
+
+        <button
+          type="submit"
+          id="book-demo-submit"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <span id="book-demo-submit-label">Confirm &amp; Book Demo</span>
+        </button>
+      </form>
+    </div>
+
+    <div id="book-demo-success" class="hidden py-6 text-center">
+      <div class="mb-3 text-4xl" aria-hidden="true">🎉</div>
+      <h3 class="text-xl font-bold text-gray-900 mb-1">Request received!</h3>
+      <p class="text-sm text-gray-600">
+        Thanks — our team will reach out to you shortly to schedule your demo.
+      </p>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ CONTACT_EMAIL, hcaptchaEnabled: Boolean(hcaptchaSiteKey) }}>
+  const modal = document.getElementById("book-demo-modal");
+  const form = document.getElementById("book-demo-form");
+  const closeBtn = document.getElementById("book-demo-close");
+  const submitBtn = document.getElementById("book-demo-submit");
+  const submitLabel = document.getElementById("book-demo-submit-label");
+  const errorBox = document.getElementById("book-demo-error");
+  const formState = document.getElementById("book-demo-form-state");
+  const successState = document.getElementById("book-demo-success");
+  const captchaBox = document.querySelector(".h-captcha");
+
+  // Skip hCaptcha on localhost so it doesn't get in the way during development.
+  const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+  const captchaActive = hcaptchaEnabled && !isLocalhost;
+
+  if (captchaActive) {
+    const hcaptchaScript = document.createElement("script");
+    hcaptchaScript.src = "https://js.hcaptcha.com/1/api.js";
+    hcaptchaScript.async = true;
+    hcaptchaScript.defer = true;
+    document.head.appendChild(hcaptchaScript);
+  } else {
+    captchaBox?.classList.add("hidden");
+  }
+
+  const resetCaptcha = () => {
+    if (captchaActive && window.hcaptcha && typeof window.hcaptcha.reset === "function") {
+      window.hcaptcha.reset();
+    }
+  };
+
+  const openModal = () => {
+    formState?.classList.remove("hidden");
+    successState?.classList.add("hidden");
+    errorBox?.classList.add("hidden");
+    form?.reset();
+    resetCaptcha();
+    if (modal && typeof modal.showModal === "function") {
+      modal.showModal();
+    }
+  };
+
+  document.querySelectorAll("[data-open-book-demo]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  closeBtn?.addEventListener("click", () => modal?.close());
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) modal.close();
+  });
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (errorBox) {
+      errorBox.classList.add("hidden");
+      errorBox.textContent = "";
+    }
+
+    const accessKeyInput = form.querySelector('input[name="access_key"]');
+    const accessKey = accessKeyInput ? accessKeyInput.value : "";
+
+    if (!accessKey) {
+      if (errorBox) {
+        errorBox.textContent = `Booking is temporarily unavailable. Please email us directly at ${CONTACT_EMAIL}.`;
+        errorBox.classList.remove("hidden");
+      }
+      return;
+    }
+
+    if (captchaActive) {
+      const captchaResponse = form.querySelector('textarea[name="h-captcha-response"]');
+      if (!captchaResponse || !captchaResponse.value) {
+        if (errorBox) {
+          errorBox.textContent = "Please complete the captcha verification.";
+          errorBox.classList.remove("hidden");
+        }
+        return;
+      }
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
+    if (submitLabel) submitLabel.textContent = "Sending...";
+
+    try {
+      const formData = new FormData(form);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        formState?.classList.add("hidden");
+        successState?.classList.remove("hidden");
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      if (errorBox) {
+        errorBox.textContent = `Something went wrong. Please try again or email us at ${CONTACT_EMAIL}.`;
+        errorBox.classList.remove("hidden");
+      }
+      resetCaptcha();
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      if (submitLabel) submitLabel.textContent = "Confirm & Book Demo";
+    }
+  });
+</script>

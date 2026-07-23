@@ -1,37 +1,36 @@
 ---
-import { CONTACT, LINKS, SITE } from "../consts";
+import { CONTACT, SITE } from "../consts";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<footer id="contact" class="bg-gray-900 text-white py-12 mt-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid md:grid-cols-4 gap-8">
+<footer id="contact" class="relative overflow-hidden bg-gray-900 text-white py-6 mt-8">
+  <img
+    src="/logo-dark.png"
+    alt=""
+    aria-hidden="true"
+    class="absolute right-4 bottom-0 w-32 md:w-48 pointer-events-none select-none brightness-0 opacity-20"
+  />
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-3 gap-6 items-start">
+
       <div>
-        <h3 class="text-lg mb-4 font-bold">{SITE.name}</h3>
-        <p class="text-gray-400 text-sm">{SITE.tagline}</p>
+        <h4 class="text-xs uppercase tracking-wider mb-2 font-bold text-blue-400">Our Address</h4>
+        <a
+          href={CONTACT.mapUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block text-xs text-gray-400 hover:text-blue-300 transition-colors"
+          title="View on Google Maps"
+        >
+          {CONTACT.address.map((line) => <span class="block">{line}</span>)}
+        </a>
       </div>
 
       <div>
-        <h4 class="text-sm uppercase tracking-wider mb-4 font-bold text-blue-400">Our Address</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
-          {CONTACT.address.map((line) => <li>{line}</li>)}
-          <li class="pt-1">
-            <a
-              href={CONTACT.mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-blue-400 hover:text-blue-300 underline inline-flex items-center gap-1"
-            >
-              📍 View on Map
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="text-sm uppercase tracking-wider mb-4 font-bold text-purple-400">Contact Us</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
+        <h4 class="text-xs uppercase tracking-wider mb-2 font-bold text-purple-400">Contact Us</h4>
+        <ul class="space-y-1 text-xs text-gray-400">
           <li>Phone: {CONTACT.phone}</li>
           <li>Email: {CONTACT.email}</li>
           <li>Web: {CONTACT.web}</li>
@@ -39,19 +38,16 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div>
-        <h4 class="text-sm uppercase tracking-wider mb-4 font-bold text-teal-400">Product</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
+        <h4 class="text-xs uppercase tracking-wider mb-2 font-bold text-teal-400">Product</h4>
+        <ul class="space-y-1 text-xs text-gray-400">
           <li><a href="/#features" class="hover:text-white">Features</a></li>
-          <li><a href={LINKS.pricing} class="hover:text-white">Pricing</a></li>
-          <li><a href={LINKS.freeTrial} class="hover:text-white">Start Free Trial</a></li>
-          <li><a href={LINKS.login} class="hover:text-white">Log in</a></li>
+          <li><a href="/pricing" class="hover:text-white">Pricing</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="border-t border-gray-800 mt-10 pt-6 text-sm text-gray-500 flex flex-col sm:flex-row justify-between gap-2">
+    <div class="border-t border-gray-800 mt-4 pt-4 text-xs text-gray-500 flex flex-col sm:flex-row justify-between gap-1">
       <span>&copy; {currentYear} {SITE.name}. All rights reserved.</span>
-      <span>Hours: {CONTACT.hours.join(" · ")}</span>
     </div>
   </div>
 </footer>

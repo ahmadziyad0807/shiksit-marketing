@@ -6,7 +6,6 @@ export const APP_URL = "https://app.shiksit.com";
 export const LINKS = {
   login: `${APP_URL}/login`,
   freeTrial: `${APP_URL}/free-trial`,
-  pricing: `${APP_URL}/pricing`,
 };
 
 export const SITE = {
@@ -21,9 +20,7 @@ export const CONTACT = {
   email: "contact@shiksit.com",
   web: "www.shiksit.com",
   address: [
-    "Shiksit, Floor 5",
-    "Purvanchal Capital Tower",
-    "12 A Plot No T.C A-1, Vibhuti Khand",
+    "Purvanchal Capital Tower, Vibhuti Khand",
     "Gomti Nagar, Lucknow",
     "Uttar Pradesh 226010, India",
   ],

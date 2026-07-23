@@ -1,0 +1,241 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+interface Plan {
+  name: string;
+  badge: { text: string; classes: string };
+  tagline: string;
+  usersLabel: string;
+  monthly?: number;
+  savePercent?: number;
+  priceNote?: string;
+  custom?: boolean;
+  features: string[];
+  supportLabel: string;
+  popular?: boolean;
+}
+
+const plans: Plan[] = [
+  {
+    name: "Free Trial",
+    badge: { text: "7-DAY DEMO", classes: "bg-blue-100 text-blue-700" },
+    tagline: "Evaluate before you commit",
+    usersLabel: "Demo / limited setup",
+    priceNote: "for 7 days",
+    features: [
+      "7 days platform access",
+      "Limited Admin, Teacher, Student, Parent dashboards included",
+      "Standard onboarding support",
+    ],
+    supportLabel: "Standard Support",
+  },
+  {
+    name: "Essential",
+    badge: { text: "STARTER", classes: "bg-emerald-100 text-emerald-700" },
+    tagline: "Small institutions, single campus",
+    usersLabel: "Up to 500 Active Users",
+    monthly: 3999,
+    savePercent: 40,
+    features: [
+      "Up to 500 Active Users",
+      "All core role dashboards",
+      "IT Admin controls & configuration",
+      "Standard email support",
+    ],
+    supportLabel: "Standard Support",
+  },
+  {
+    name: "Professional",
+    popular: true,
+    badge: { text: "GROWTH", classes: "bg-purple-100 text-purple-700" },
+    tagline: "Actively growing institutions",
+    usersLabel: "Up to 1,200 Active Users",
+    monthly: 6999,
+    savePercent: 50,
+    features: [
+      "Up to 1,200 Active Users",
+      "Counselor dashboard included",
+      "Assisted onboarding (online)",
+      "Priority email & chat support",
+    ],
+    supportLabel: "Priority Support",
+  },
+  {
+    name: "Premium",
+    badge: { text: "LARGE INSTITUTIONS", classes: "bg-orange-100 text-orange-700" },
+    tagline: "Large institutions, multi-branch schools",
+    usersLabel: "Up to 2,500 Active Users",
+    monthly: 11999,
+    savePercent: 60,
+    features: [
+      "Up to 2,500 Active Users across branches",
+      "Finance Admin & Counselor dashboards",
+      "Data migration service included",
+      "Priority call + dedicated agent",
+    ],
+    supportLabel: "Priority Support",
+  },
+  {
+    name: "Enterprise",
+    badge: { text: "MULTI-CAMPUS", classes: "bg-gray-100 text-gray-700" },
+    tagline: "Multi-branch institutions & school chains",
+    usersLabel: "10,000+ Active Users",
+    custom: true,
+    features: [
+      "10,000+ Active Users & unlimited branches",
+      "All dashboards incl. Transport Admin",
+      "Dedicated account manager",
+      "Custom features, reports & domain",
+    ],
+    supportLabel: "Dedicated Support",
+  },
+];
+
+// Annual billing saves 2 months (i.e. billed for 10 months, spread across 12).
+const annualMonthlyEquivalent = (monthly: number) => Math.round((monthly * 10) / 12);
+const formatINR = (value: number) => value.toLocaleString("en-IN");
+---
+
+<Layout title="Pricing" description="Shiksit pricing plans — from a free 7-day trial to enterprise multi-campus deployments.">
+  <div class="relative overflow-hidden">
+    <div class="hero-blob absolute top-0 left-0 right-0 h-[500px] pointer-events-none z-0 overflow-hidden">
+      <div class="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-purple-400/25 blur-[90px]"></div>
+      <div class="absolute -top-10 right-0 w-[380px] h-[380px] rounded-full bg-pink-400/20 blur-[80px]"></div>
+    </div>
+
+    <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 z-10 text-center">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
+        Simple, transparent pricing
+      </h1>
+      <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+        Choose the plan that fits your institution size — upgrade anytime as you grow.
+      </p>
+
+      <!-- Billing toggle -->
+      <div class="inline-flex items-center gap-3 mb-10">
+        <span id="billing-label-monthly" class="font-bold text-purple-700 text-sm md:text-base transition-colors">Monthly Billing</span>
+        <button
+          type="button"
+          id="billing-toggle"
+          role="switch"
+          aria-checked="false"
+          aria-label="Toggle annual billing"
+          class="relative inline-flex h-7 w-14 items-center rounded-full bg-gradient-to-r from-purple-600 to-pink-500 transition-colors shrink-0"
+        >
+          <span id="billing-toggle-thumb" class="inline-block h-5 w-5 translate-x-1 rounded-full bg-white shadow transition-transform"></span>
+        </button>
+        <span id="billing-label-annual" class="font-medium text-gray-400 text-sm md:text-base transition-colors">Annual Billing</span>
+        <span class="inline-flex items-center bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full">Save 2 Months</span>
+      </div>
+    </section>
+
+    <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5 items-start">
+        {plans.map((plan) => (
+          <div
+            class={`relative rounded-2xl border bg-white flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+              plan.popular
+                ? "border-transparent shadow-xl lg:-mt-4 ring-2 ring-purple-500/40"
+                : "border-gray-200 shadow-sm"
+            }`}
+          >
+            {plan.popular && (
+              <div class="rounded-t-2xl bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold uppercase tracking-wider text-center py-2">
+                Most Popular
+              </div>
+            )}
+
+            <div class="p-5 flex flex-col flex-1">
+              <div class="flex items-center gap-2 mb-2 flex-wrap">
+                <h3 class="text-lg font-extrabold text-gray-900">{plan.name}</h3>
+                {plan.popular && (
+                  <span class="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">POPULAR</span>
+                )}
+              </div>
+
+              <span class={`inline-block w-fit text-[11px] font-bold px-2 py-0.5 rounded-full mb-2 ${plan.badge.classes}`}>
+                {plan.badge.text}
+              </span>
+
+              <p class="text-sm text-gray-600 mb-1">{plan.tagline}</p>
+              <p class="text-sm font-semibold text-gray-800 mb-3">{plan.usersLabel}</p>
+
+              <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                {plan.custom ? (
+                  <div class="text-3xl font-extrabold text-gray-900">Custom <span class="text-lg font-bold text-gray-500">pricing</span></div>
+                ) : plan.monthly === undefined ? (
+                  <>
+                    <div class="text-3xl font-extrabold text-gray-900">₹0</div>
+                    <div class="text-xs text-gray-500 font-medium mt-1">{plan.priceNote}</div>
+                  </>
+                ) : (
+                  <>
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-3xl font-extrabold text-gray-900" data-monthly={plan.monthly} data-annual={annualMonthlyEquivalent(plan.monthly)}>
+                        ₹{formatINR(plan.monthly)}
+                      </span>
+                      <span class="text-sm text-gray-500 font-medium">/month</span>
+                    </div>
+                    <div class="text-xs font-bold text-purple-600 mt-1">Save {plan.savePercent}%</div>
+                  </>
+                )}
+              </div>
+
+              <ul class="space-y-2.5 mb-5 flex-1">
+                {plan.features.map((feature) => (
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500 shrink-0 mt-0.5" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <p class="text-center text-xs text-gray-400 mt-auto">{plan.supportLabel}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  const toggle = document.getElementById("billing-toggle");
+  const thumb = document.getElementById("billing-toggle-thumb");
+  const labelMonthly = document.getElementById("billing-label-monthly");
+  const labelAnnual = document.getElementById("billing-label-annual");
+  const prices = document.querySelectorAll<HTMLElement>("[data-monthly][data-annual]");
+
+  let annual = false;
+
+  const render = () => {
+    toggle?.setAttribute("aria-checked", String(annual));
+    thumb?.classList.toggle("translate-x-1", !annual);
+    thumb?.classList.toggle("translate-x-8", annual);
+
+    labelMonthly?.classList.toggle("text-purple-700", !annual);
+    labelMonthly?.classList.toggle("font-bold", !annual);
+    labelMonthly?.classList.toggle("text-gray-400", annual);
+    labelMonthly?.classList.toggle("font-medium", annual);
+
+    labelAnnual?.classList.toggle("text-purple-700", annual);
+    labelAnnual?.classList.toggle("font-bold", annual);
+    labelAnnual?.classList.toggle("text-gray-400", !annual);
+    labelAnnual?.classList.toggle("font-medium", !annual);
+
+    prices.forEach((el) => {
+      const value = annual ? el.dataset.annual : el.dataset.monthly;
+      el.textContent = `₹${Number(value).toLocaleString("en-IN")}`;
+    });
+  };
+
+  toggle?.addEventListener("click", () => {
+    annual = !annual;
+    render();
+  });
+
+  render();
+</script>
