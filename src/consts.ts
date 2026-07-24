@@ -16,7 +16,6 @@ export const SITE = {
 };
 
 export const CONTACT = {
-  phone: "+91 9876543210",
   email: "contact@shiksit.com",
   web: "www.shiksit.com",
   address: [

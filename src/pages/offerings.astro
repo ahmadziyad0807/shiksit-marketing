@@ -91,12 +91,9 @@ const plans: Plan[] = [
   },
 ];
 
-// Annual billing saves 2 months (i.e. billed for 10 months, spread across 12).
-const annualMonthlyEquivalent = (monthly: number) => Math.round((monthly * 10) / 12);
-const formatINR = (value: number) => value.toLocaleString("en-IN");
 ---
 
-<Layout title="Pricing" description="Shiksit pricing plans, from a free 7-day trial to enterprise multi-campus deployments.">
+<Layout title="Offerings" description="Explore Shiksit's offerings, from a free 7-day trial to enterprise multi-campus deployments.">
   <div class="relative overflow-hidden">
     <div class="hero-blob absolute top-0 left-0 right-0 h-[500px] pointer-events-none z-0 overflow-hidden">
       <div class="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-purple-400/25 blur-[90px]"></div>
@@ -105,28 +102,11 @@ const formatINR = (value: number) => value.toLocaleString("en-IN");
 
     <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 z-10 text-center">
       <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
-        Simple, transparent pricing
+        Explore our offerings
       </h1>
       <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mb-8">
         Choose the plan that fits your institution size, and upgrade anytime as you grow.
       </p>
-
-      <!-- Billing toggle -->
-      <div class="inline-flex items-center gap-3 mb-10">
-        <span id="billing-label-monthly" class="font-bold text-purple-700 text-sm md:text-base transition-colors">Monthly Billing</span>
-        <button
-          type="button"
-          id="billing-toggle"
-          role="switch"
-          aria-checked="false"
-          aria-label="Toggle annual billing"
-          class="relative inline-flex h-7 w-14 items-center rounded-full bg-gradient-to-r from-purple-600 to-pink-500 transition-colors shrink-0"
-        >
-          <span id="billing-toggle-thumb" class="inline-block h-5 w-5 translate-x-1 rounded-full bg-white shadow transition-transform"></span>
-        </button>
-        <span id="billing-label-annual" class="font-medium text-gray-400 text-sm md:text-base transition-colors">Annual Billing</span>
-        <span class="inline-flex items-center bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full">Save 2 Months</span>
-      </div>
     </section>
 
     <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 z-10">
@@ -158,28 +138,7 @@ const formatINR = (value: number) => value.toLocaleString("en-IN");
               </span>
 
               <p class="text-sm text-gray-600 mb-1">{plan.tagline}</p>
-              <p class="text-sm font-semibold text-gray-800 mb-3">{plan.usersLabel}</p>
-
-              <div class="bg-gray-50 rounded-xl p-4 mb-4">
-                {plan.custom ? (
-                  <div class="text-3xl font-extrabold text-gray-900">Custom <span class="text-lg font-bold text-gray-500">pricing</span></div>
-                ) : plan.monthly === undefined ? (
-                  <>
-                    <div class="text-3xl font-extrabold text-gray-900">₹0</div>
-                    <div class="text-xs text-gray-500 font-medium mt-1">{plan.priceNote}</div>
-                  </>
-                ) : (
-                  <>
-                    <div class="flex items-baseline gap-1">
-                      <span class="text-3xl font-extrabold text-gray-900" data-monthly={plan.monthly} data-annual={annualMonthlyEquivalent(plan.monthly)}>
-                        ₹{formatINR(plan.monthly)}
-                      </span>
-                      <span class="text-sm text-gray-500 font-medium">/month</span>
-                    </div>
-                    <div class="text-xs font-bold text-purple-600 mt-1">Save {plan.savePercent}%</div>
-                  </>
-                )}
-              </div>
+              <p class="text-sm font-semibold text-gray-800 mb-4">{plan.usersLabel}</p>
 
               <ul class="space-y-2.5 mb-5 flex-1">
                 {plan.features.map((feature) => (
@@ -201,41 +160,3 @@ const formatINR = (value: number) => value.toLocaleString("en-IN");
     </section>
   </div>
 </Layout>
-
-<script>
-  const toggle = document.getElementById("billing-toggle");
-  const thumb = document.getElementById("billing-toggle-thumb");
-  const labelMonthly = document.getElementById("billing-label-monthly");
-  const labelAnnual = document.getElementById("billing-label-annual");
-  const prices = document.querySelectorAll<HTMLElement>("[data-monthly][data-annual]");
-
-  let annual = false;
-
-  const render = () => {
-    toggle?.setAttribute("aria-checked", String(annual));
-    thumb?.classList.toggle("translate-x-1", !annual);
-    thumb?.classList.toggle("translate-x-8", annual);
-
-    labelMonthly?.classList.toggle("text-purple-700", !annual);
-    labelMonthly?.classList.toggle("font-bold", !annual);
-    labelMonthly?.classList.toggle("text-gray-400", annual);
-    labelMonthly?.classList.toggle("font-medium", annual);
-
-    labelAnnual?.classList.toggle("text-purple-700", annual);
-    labelAnnual?.classList.toggle("font-bold", annual);
-    labelAnnual?.classList.toggle("text-gray-400", !annual);
-    labelAnnual?.classList.toggle("font-medium", !annual);
-
-    prices.forEach((el) => {
-      const value = annual ? el.dataset.annual : el.dataset.monthly;
-      el.textContent = `₹${Number(value).toLocaleString("en-IN")}`;
-    });
-  };
-
-  toggle?.addEventListener("click", () => {
-    annual = !annual;
-    render();
-  });
-
-  render();
-</script>

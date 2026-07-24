@@ -1,0 +1,275 @@
+---
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
+const apiUrl = import.meta.env.PUBLIC_CHATBOT_API_URL ?? "";
+---
+
+<!-- Floating chat launcher -->
+<button
+  type="button"
+  id="chat-launcher"
+  aria-label="Open chat"
+  aria-expanded="false"
+  class="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-blue-600 text-white shadow-lg transition-transform hover:scale-105 hover:bg-blue-700"
+>
+  <svg id="chat-launcher-icon-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+  </svg>
+  <svg id="chat-launcher-icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true">
+    <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
+  </svg>
+</button>
+
+<!-- Chat panel -->
+<div
+  id="chat-panel"
+  class="fixed bottom-24 right-5 z-40 hidden h-[28rem] w-[calc(100%-2.5rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl"
+>
+  <div class="flex items-center justify-between bg-blue-600 px-4 py-3 text-white">
+    <div>
+      <p class="font-semibold">Shiksit Assistant</p>
+      <p class="text-xs text-blue-100">Ask about plans, roles, and features</p>
+    </div>
+    <button type="button" id="chat-close" aria-label="Close chat" class="grid h-8 w-8 place-items-center rounded-full hover:bg-blue-700">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div id="chat-view" class="flex min-h-0 flex-1 flex-col">
+    <div id="chat-messages" class="min-h-0 flex-1 space-y-3 overflow-y-auto p-4 text-sm">
+      <div class="flex">
+        <div class="max-w-[85%] rounded-2xl rounded-bl-sm bg-gray-100 px-3 py-2 text-gray-800">
+          Hi! Ask me about Shiksit's plans, roles, or features. I can't answer everything — for offering details or anything specific, use the contact form below.
+        </div>
+      </div>
+    </div>
+
+    <form id="chat-form" class="flex items-center gap-2 border-t border-gray-100 p-3">
+      <input
+        id="chat-input"
+        type="text"
+        autocomplete="off"
+        maxlength="2000"
+        placeholder="Type your question..."
+        class="flex-1 rounded-full border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      />
+      <button
+        type="submit"
+        id="chat-send"
+        aria-label="Send message"
+        class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-blue-600 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path>
+        </svg>
+      </button>
+    </form>
+    <button type="button" id="chat-talk-human" class="border-t border-gray-100 px-4 py-2 text-center text-xs font-medium text-blue-600 hover:bg-gray-50">
+      Talk to a human instead
+    </button>
+  </div>
+
+  <div id="chat-contact" class="hidden min-h-0 flex-1 flex-col overflow-y-auto p-4">
+    <button type="button" id="chat-back-to-chat" class="mb-2 flex items-center gap-1 text-xs font-medium text-gray-500 hover:text-gray-700">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m15 18-6-6 6-6"></path>
+      </svg>
+      Back to chat
+    </button>
+    <p class="mb-2 text-xs font-semibold text-gray-700">Talk to our team</p>
+    <form id="chat-contact-form" class="space-y-2">
+      <input type="hidden" name="access_key" value={accessKey} />
+      <input type="hidden" name="subject" value="New chat contact request - Shiksit website" />
+      <input type="hidden" name="from_name" value="Shiksit Website Chat" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+      <input
+        name="name"
+        type="text"
+        required
+        placeholder="Your name"
+        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      />
+      <input
+        name="email"
+        type="email"
+        required
+        placeholder="Email address"
+        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      />
+      <textarea
+        name="message"
+        rows="2"
+        required
+        placeholder="What do you need help with?"
+        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      ></textarea>
+      <div id="chat-contact-error" class="hidden text-xs text-red-600"></div>
+      <button
+        type="submit"
+        id="chat-contact-submit"
+        class="w-full rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        Send to our team
+      </button>
+    </form>
+    <div id="chat-contact-success" class="hidden text-center text-xs text-gray-600">
+      Thanks! We'll get back to you shortly.
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ apiUrl }}>
+  const MAX_HISTORY_TURNS = 8;
+
+  const launcher = document.getElementById("chat-launcher");
+  const launcherIconOpen = document.getElementById("chat-launcher-icon-open");
+  const launcherIconClose = document.getElementById("chat-launcher-icon-close");
+  const panel = document.getElementById("chat-panel");
+  const closeBtn = document.getElementById("chat-close");
+  const chatView = document.getElementById("chat-view");
+  const messagesEl = document.getElementById("chat-messages");
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("chat-input");
+  const sendBtn = document.getElementById("chat-send");
+  const contactSection = document.getElementById("chat-contact");
+  const talkHumanBtn = document.getElementById("chat-talk-human");
+  const backToChatBtn = document.getElementById("chat-back-to-chat");
+  const contactForm = document.getElementById("chat-contact-form");
+  const contactError = document.getElementById("chat-contact-error");
+  const contactSuccess = document.getElementById("chat-contact-success");
+  const contactSubmit = document.getElementById("chat-contact-submit");
+
+  // In-memory only — cleared on reload/close. Never persisted.
+  let history = [];
+
+  const setOpen = (open) => {
+    panel?.classList.toggle("hidden", !open);
+    panel?.classList.toggle("flex", open);
+    launcherIconOpen?.classList.toggle("hidden", open);
+    launcherIconClose?.classList.toggle("hidden", !open);
+    launcher?.setAttribute("aria-expanded", String(open));
+    if (open) input?.focus();
+  };
+
+  launcher?.addEventListener("click", () => {
+    const isHidden = panel?.classList.contains("hidden");
+    setOpen(!!isHidden);
+  });
+  closeBtn?.addEventListener("click", () => setOpen(false));
+
+  const appendMessage = (text, role) => {
+    const row = document.createElement("div");
+    row.className = role === "user" ? "flex justify-end" : "flex";
+
+    const bubble = document.createElement("div");
+    bubble.className =
+      role === "user"
+        ? "max-w-[85%] rounded-2xl rounded-br-sm bg-blue-600 px-3 py-2 text-white"
+        : "max-w-[85%] rounded-2xl rounded-bl-sm bg-gray-100 px-3 py-2 text-gray-800";
+    bubble.textContent = text; // textContent only — never innerHTML
+
+    row.appendChild(bubble);
+    messagesEl?.appendChild(row);
+    if (messagesEl) messagesEl.scrollTop = messagesEl.scrollHeight;
+    return bubble;
+  };
+
+  const showView = (view) => {
+    chatView?.classList.toggle("hidden", view !== "chat");
+    chatView?.classList.toggle("flex", view === "chat");
+    contactSection?.classList.toggle("hidden", view !== "contact");
+    contactSection?.classList.toggle("flex", view === "contact");
+  };
+
+  const showContactFallback = () => showView("contact");
+
+  talkHumanBtn?.addEventListener("click", () => showView("contact"));
+  backToChatBtn?.addEventListener("click", () => showView("chat"));
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = input instanceof HTMLInputElement ? input.value.trim() : "";
+    if (!message) return;
+
+    if (!apiUrl) {
+      appendMessage("Chat isn't configured yet. Please use the contact form below.", "assistant");
+      showContactFallback();
+      return;
+    }
+
+    appendMessage(message, "user");
+    if (input instanceof HTMLInputElement) input.value = "";
+    if (sendBtn instanceof HTMLButtonElement) sendBtn.disabled = true;
+
+    const typingBubble = appendMessage("...", "assistant");
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message, history }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        typingBubble.textContent = data.error || "Something went wrong. Please try again.";
+        showContactFallback();
+      } else {
+        typingBubble.textContent = data.reply;
+        history.push({ role: "user", text: message });
+        history.push({ role: "assistant", text: data.reply });
+        history = history.slice(-MAX_HISTORY_TURNS * 2);
+      }
+    } catch {
+      typingBubble.textContent = "Couldn't reach the assistant. Please use the contact form below.";
+      showContactFallback();
+    } finally {
+      if (sendBtn instanceof HTMLButtonElement) sendBtn.disabled = false;
+    }
+  });
+
+  contactForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (contactError) {
+      contactError.classList.add("hidden");
+      contactError.textContent = "";
+    }
+
+    const accessKeyInput = contactForm.querySelector('input[name="access_key"]');
+    const accessKey = accessKeyInput instanceof HTMLInputElement ? accessKeyInput.value : "";
+    if (!accessKey) {
+      if (contactError) {
+        contactError.textContent = "Contact form is temporarily unavailable — please email hello@shiksit.com.";
+        contactError.classList.remove("hidden");
+      }
+      return;
+    }
+
+    if (contactSubmit instanceof HTMLButtonElement) contactSubmit.disabled = true;
+
+    try {
+      const formData = new FormData(contactForm);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        contactForm.classList.add("hidden");
+        contactSuccess?.classList.remove("hidden");
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch {
+      if (contactError) {
+        contactError.textContent = "Something went wrong. Please email hello@shiksit.com.";
+        contactError.classList.remove("hidden");
+      }
+    } finally {
+      if (contactSubmit instanceof HTMLButtonElement) contactSubmit.disabled = false;
+    }
+  });
+</script>

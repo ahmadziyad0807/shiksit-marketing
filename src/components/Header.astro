@@ -3,25 +3,25 @@ import { LINKS, SITE } from "../consts";
 
 const navItems = [
   { name: "Features", href: "/#features" },
-  { name: "Pricing", href: "/pricing" },
+  { name: "Offerings", href: "/offerings" },
   { name: "Contact", href: "/#contact" },
 ];
 ---
 
 <!-- Floating glassmorphism header -->
 <header class="fixed top-0 inset-x-0 z-50 px-4">
-  <div class="relative mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-2xl border border-gray-200/60 bg-white/70 px-4 py-3 shadow-sm backdrop-blur-xl md:px-6">
+  <div class="relative mx-auto mt-3 flex max-w-6xl items-center justify-between rounded-2xl border border-gray-200/60 bg-white/70 px-4 py-1.5 shadow-sm backdrop-blur-xl md:px-6">
 
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 md:gap-3 min-w-0 shrink" aria-label="Shiksit home">
-      <span class="grid h-10 w-10 md:h-14 md:w-14 shrink-0 place-items-center rounded-xl overflow-hidden bg-white shadow-lg shadow-purple-500/20">
+      <span class="grid h-8 w-8 md:h-9 md:w-9 shrink-0 place-items-center rounded-xl overflow-hidden bg-white shadow-lg shadow-purple-500/20">
         <img src="/Header.png" alt="Shiksit logo" class="w-full h-full object-contain" />
       </span>
-      <span class="text-xl md:text-3xl font-extrabold tracking-tight text-gray-900 font-sans truncate">{SITE.name}</span>
+      <span class="text-base md:text-xl font-extrabold tracking-tight text-gray-900 font-sans truncate">{SITE.name}</span>
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden gap-8 text-lg md:flex" aria-label="Main navigation">
+    <nav class="hidden gap-8 text-base md:flex" aria-label="Main navigation">
       {navItems.map((item) => (
         <a href={item.href} class="font-semibold text-gray-800 transition-all duration-200 hover:text-purple-600 hover:scale-110 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-purple-600 after:transition-all after:duration-300 hover:after:w-full">
           {item.name}
@@ -33,7 +33,7 @@ const navItems = [
     <div class="flex items-center gap-2 shrink-0">
       <a
         href={LINKS.login}
-        class="hidden rounded-full border border-gray-200 px-4 py-2 text-lg font-medium text-gray-700 transition-colors hover:border-purple-400 hover:text-purple-600 md:inline-block"
+        class="hidden rounded-full border border-gray-200 px-4 py-1.5 text-base font-medium text-gray-700 transition-colors hover:border-purple-400 hover:text-purple-600 md:inline-block"
       >
         Log in
       </a>
@@ -52,7 +52,7 @@ const navItems = [
       <!-- Mobile menu toggle -->
       <button
         id="mobile-menu-button"
-        class="ml-1 grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 md:hidden"
+        class="ml-1 grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 md:hidden"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
@@ -88,7 +88,7 @@ const navItems = [
 </header>
 
 <!-- Spacer so page content starts below the fixed header -->
-<div class="h-20"></div>
+<div class="h-14"></div>
 
 <script>
   const button = document.getElementById("mobile-menu-button");
